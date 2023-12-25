@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+    <process id="leaveprocess" name="请假" isExecutable="true">
+        <startEvent id="startEvent1" name=" 开始" flowable:formFieldValidation="true"></startEvent>
+        <userTask id="apply" name="申请" flowable:assignee="${name}" flowable:formFieldValidation="true">
+            <extensionElements>
+                <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+            </extensionElements>
+        </userTask>
+        <sequenceFlow id="sid-85F22A25-EE2C-4DC7-B27C-E956093578BC" sourceRef="startEvent1" targetRef="apply"></sequenceFlow>
+        <userTask id="supApproval" name="主管审批" flowable:candidateGroups="manager" flowable:formFieldValidation="true"></userTask>
+        <exclusiveGateway id="sid-0BAC26DE-CBA0-4D54-B600-305F43E6A4D2" name="判断是否大于2天"></exclusiveGateway>
+        <sequenceFlow id="sid-7949F9F5-0E3C-46E7-ACFA-BC3A4639BFB9" name="申请流程" sourceRef="apply" targetRef="supApproval"></sequenceFlow>
+        <userTask id="bossApproval" name="老板审批" flowable:candidateGroups="boss" flowable:formFieldValidation="true"></userTask>
+        <endEvent id="sid-E40856BB-0A67-44CF-B609-4B5AF53B55CD" name="结束"></endEvent>
+        <sequenceFlow id="judgeMore" name="大于等于2天" sourceRef="sid-0BAC26DE-CBA0-4D54-B600-305F43E6A4D2" targetRef="bossApproval">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days>=2}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="judgeLess" name="小于2天" sourceRef="sid-0BAC26DE-CBA0-4D54-B600-305F43E6A4D2" targetRef="sid-E40856BB-0A67-44CF-B609-4B5AF53B55CD">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${days<2}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="supApprovalFlow" name="同意" sourceRef="supApproval" targetRef="sid-0BAC26DE-CBA0-4D54-B600-305F43E6A4D2">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="supnoApprovalFlow" name="驳回" sourceRef="supApproval" targetRef="apply">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="bossApproveFlow" name="同意" sourceRef="bossApproval" targetRef="sid-E40856BB-0A67-44CF-B609-4B5AF53B55CD">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${bossapproved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow id="bossnoApproveFlow" name="驳回" sourceRef="bossApproval" targetRef="apply">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!bossapproved}]]></conditionExpression>
+        </sequenceFlow>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_leaveprocess">
+        <bpmndi:BPMNPlane bpmnElement="leaveprocess" id="BPMNPlane_leaveprocess">
+            <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+                <omgdc:Bounds height="30.0" width="30.0" x="100.0" y="163.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="apply" id="BPMNShape_apply">
+                <omgdc:Bounds height="80.0" width="100.0" x="175.0" y="138.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="supApproval" id="BPMNShape_supApproval">
+                <omgdc:Bounds height="80.0" width="100.0" x="345.0" y="135.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-0BAC26DE-CBA0-4D54-B600-305F43E6A4D2" id="BPMNShape_sid-0BAC26DE-CBA0-4D54-B600-305F43E6A4D2">
+                <omgdc:Bounds height="40.0" width="40.0" x="555.0" y="155.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="bossApproval" id="BPMNShape_bossApproval">
+                <omgdc:Bounds height="80.0" width="100.0" x="525.0" y="345.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-E40856BB-0A67-44CF-B609-4B5AF53B55CD" id="BPMNShape_sid-E40856BB-0A67-44CF-B609-4B5AF53B55CD">
+                <omgdc:Bounds height="28.0" width="28.0" x="725.0" y="161.0"></omgdc:Bounds>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="bossApproveFlow" id="BPMNEdge_bossApproveFlow">
+                <omgdi:waypoint x="624.949999999904" y="385.0"></omgdi:waypoint>
+                <omgdi:waypoint x="739.0" y="385.0"></omgdi:waypoint>
+                <omgdi:waypoint x="739.0" y="188.9499235231316"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="supnoApprovalFlow" id="BPMNEdge_supnoApprovalFlow">
+                <omgdi:waypoint x="395.0" y="135.0"></omgdi:waypoint>
+                <omgdi:waypoint x="395.0" y="98.0"></omgdi:waypoint>
+                <omgdi:waypoint x="225.0" y="98.0"></omgdi:waypoint>
+                <omgdi:waypoint x="225.0" y="138.0"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="judgeLess" id="BPMNEdge_judgeLess">
+                <omgdi:waypoint x="594.5022838749192" y="175.44171779141104"></omgdi:waypoint>
+                <omgdi:waypoint x="725.0000626357853" y="175.0426605073493"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="bossnoApproveFlow" id="BPMNEdge_bossnoApproveFlow">
+                <omgdi:waypoint x="524.9999999999728" y="385.0"></omgdi:waypoint>
+                <omgdi:waypoint x="225.0" y="385.0"></omgdi:waypoint>
+                <omgdi:waypoint x="225.0" y="217.95000000000002"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="judgeMore" id="BPMNEdge_judgeMore">
+                <omgdi:waypoint x="575.4545454545455" y="194.49078192252514"></omgdi:waypoint>
+                <omgdi:waypoint x="575.0953460620525" y="345.0"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="sid-85F22A25-EE2C-4DC7-B27C-E956093578BC" id="BPMNEdge_sid-85F22A25-EE2C-4DC7-B27C-E956093578BC">
+                <omgdi:waypoint x="129.9499984899576" y="178.0"></omgdi:waypoint>
+                <omgdi:waypoint x="174.9999999999917" y="178.0"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="sid-7949F9F5-0E3C-46E7-ACFA-BC3A4639BFB9" id="BPMNEdge_sid-7949F9F5-0E3C-46E7-ACFA-BC3A4639BFB9">
+                <omgdi:waypoint x="274.94999999999965" y="177.1176470588235"></omgdi:waypoint>
+                <omgdi:waypoint x="344.9999999999978" y="175.8814705882353"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="supApprovalFlow" id="BPMNEdge_supApprovalFlow">
+                <omgdi:waypoint x="444.9499999999977" y="175.13836565096955"></omgdi:waypoint>
+                <omgdi:waypoint x="555.4444444444388" y="175.44444444444443"></omgdi:waypoint>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

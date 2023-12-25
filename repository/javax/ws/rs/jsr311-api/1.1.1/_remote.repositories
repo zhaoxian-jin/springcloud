@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Dec 22 13:05:37 CST 2023
+jsr311-api-1.1.1.jar>aliyunmaven=
+jsr311-api-1.1.1-javadoc.jar>aliyunmaven=
+jsr311-api-1.1.1.pom>aliyunmaven=
+jsr311-api-1.1.1-sources.jar>aliyunmaven=

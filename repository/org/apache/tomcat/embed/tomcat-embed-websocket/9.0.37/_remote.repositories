@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Dec 23 09:29:10 CST 2023
+tomcat-embed-websocket-9.0.37.jar>aliyunmaven=
+tomcat-embed-websocket-9.0.37.pom>aliyunmaven=
+tomcat-embed-websocket-9.0.37-sources.jar>aliyunmaven=

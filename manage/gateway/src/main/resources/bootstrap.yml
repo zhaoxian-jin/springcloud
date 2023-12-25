@@ -1,0 +1,63 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: dev
+  application:
+    name: tt-sc-gateway
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        server-addr: 192.168.10.107:8848
+        file-extension: yml
+        # 开启nacos作为配置中心，默认值：true
+#        enabled: true
+#        # 配置文件读取的nacos命名空间ID，默认值：public
+#        namespace: 7c6ef0e3-5384-499a-9357-25fa3b9c0a1e
+#        # 配置文件在nacos命名空间中的分组，默认值：DEFAULT_GROUP
+#        group: DEFAULT_GROUP
+#        # 配置文件的文件前缀（配置文件名称），默认值：${spring.application.name}-${spring.profiles.active}
+#        prefix: ${spring.application.name}-${spring.profiles.active}
+#        # 配置文件的文件后缀（文件类型），默认值：properties
+#        file-extension: yaml
+#        # 配置内容的编码方式，默认值：UTF-8
+#        encode: UTF-8
+#        # 获取配置的超时时间，单位：ms，默认值：3000
+#        timeout: 3000
+#        # 开启监听和自动刷新，动态感知配置变化，默认值：true
+#        refresh-enabled: true
+        ###############################################
+        # 引入扩展配置（同一分组或不同分组）
+        # extension-configs:
+        # 配置支持共享的 Data Id
+          # - data-id: global.yaml
+          # 配置 Data Id 所在分组，缺省默认 DEFAULT_GROUP
+          # group: DEFAULT_GROUP
+          # 配置Data Id 在配置变更时，是否动态刷新，缺省默认 false
+          # refresh: true
+      discovery:
+        server-addr: 192.168.10.107:8848
+
+    #sentinel看板相关配置
+    sentinel:
+      eager: true
+      transport:
+        dashboard: 192.168.10.107:8080
+        #SpringBoot项目与控制台做交互的端口，默认8719
+        port: 8719
+      #配置限流后响应内容
+
+      scg:
+        fallback:
+          #两种模式：一种是response返回文字提示信息，一种是redirect,重定向跳转，同时配置跳转路径
+          mode: response
+          #配置响应状态码
+          response-status: 555
+          #响应体
+          response-body: '{"code":555,"message":"gateway你被限流了"}'
+
+
+
+

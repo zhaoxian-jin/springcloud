@@ -1,0 +1,64 @@
+server:
+  port: 8083
+spring:
+  profiles:
+    active: dev
+  application:
+    name: tt-sc-feign-consumer
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        server-addr: 192.168.10.107:8848
+        file-extension: yml
+      discovery:
+        server-addr: 192.168.10.107:8848
+    #sentinel看板相关配置
+    sentinel:
+      transport:
+        dashboard: 192.168.10.107:8080
+        #SpringBoot项目与控制台做交互的端口，默认8719
+        port: 8723
+      eager: true
+      #添加Nacos数据源配置
+      datasource:
+        #名字自定义即可
+        ds1:
+          nacos:
+            server-addr: 192.168.10.107:8848
+            username: nacos
+            password: nacos
+            #请求频率较高
+            namespace: public
+            dataId: tt-sc-feign-consume-sentinel
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+#        ds2:
+#          nacos:
+#            server-addr: 192.168.10.107:8848
+#            username: nacos
+#            password: nacos
+#            namespace: public
+#            dataId: tt-public
+#            groupId: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: flow
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

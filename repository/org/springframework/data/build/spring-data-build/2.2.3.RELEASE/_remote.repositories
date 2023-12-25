@@ -1,0 +1,5 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Oct 20 17:14:16 CST 2023
+spring-data-build-2.2.3.RELEASE.pom>central=
+spring-data-build-2.2.3.RELEASE.pom>huaweicloud=
+spring-data-build-2.2.3.RELEASE.pom>aliyunmaven=

@@ -1,0 +1,56 @@
+spring:
+  cloud:
+    gateway:
+      #全局配置超时
+      httpclient:
+        #连接超时ms
+        connect-timeout: 1000
+        #相应超时ms
+        response-timeout: 2000
+        pool:
+          max-connections:
+      discovery:
+        locator:
+          # 是否与服务发现组件进行结合，通过 serviceId 转发到具体的服务实例。默认为false#,服务启动直接建立心跳连接
+          enabled: true
+          lower-case-service-id: true #使用小写service-id
+      routes: # 网关路由配置
+        - id: feignconsumer # 路由id,自定义,只要唯一即可
+            # 目标服务地址（uri：地址，请求转发后的地址）
+          # uri: http://127.0.0.1:8081 # 路由的目标地址 http 就是固定地址，uri的协议为lb，表示启用Gateway的负载均衡功能。
+          uri: lb://tt-sc-feign-consumer # 路由的目标地址 lb 就是负载均衡,后面跟 服务名称
+          predicates: # 路由断言，也就是判断请求是否符合路由规则的条件;转发地址格式为 uri/archive
+            - Path=/user/** # 这个是按照路径匹配，只要以 /user/ 开头就符合要求
+          fitters:
+            - RewritePath=/user/?(?<segment>.*),/$\{segment}
+        - id: feignprovide
+          uri: lb://tt-sc-feign-provide
+          predicates:
+            - Path=/provide/**
+              # 在这个时间之后的请求才会被转发
+            #- After=2031-04-13T15:14:47.433+08:00[Asia/Shanghai]
+          #单路由配置超时
+          #metadata:
+            #response-timeout: 200
+            #connect-timeout: 200
+      globalcors: # 全局的跨域处理
+        add-to-simple-url-handLer-mapping: true # 解决options 请求被拦截问题
+        corsConfigurations:
+          '[/**]': # 指定 拦截哪些请求
+            allowed0rigins: # 允许哪些网站的跨域请求
+              - "http:XXX.xxxx"
+              - "http://www.you.com"
+            allowedMethods: # 允许的跨域 ajax 的请求方式
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*" # 允许在请求中携带的头信息
+            allowCredentials: true # 是否允许携带cookie
+            maxAge: 360000 # 这次跨域检测的有效期
+
+
+
+
+

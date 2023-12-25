@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="feignconsumer" />
+        <module name="common" />
+        <module name="tt-sc-generator" />
+        <module name="feignprovide" />
+        <module name="tt-sc-gateway" />
+        <module name="flowable-master" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.8" />
+      <module name="feignconsumer" target="1.8" />
+      <module name="feignprovide" target="1.8" />
+      <module name="flowable-master" target="1.8" />
+      <module name="manage" target="1.8" />
+      <module name="springcloud" target="1.8" />
+      <module name="tt-sc-gateway" target="1.8" />
+      <module name="tt-sc-generator" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common" options="-parameters" />
+      <module name="feignconsumer" options="-parameters" />
+      <module name="feignprovide" options="-parameters" />
+      <module name="flowable-master" options="-parameters" />
+      <module name="tt-sc-gateway" options="-parameters" />
+      <module name="tt-sc-generator" options="-parameters" />
+    </option>
+  </component>
+</project>

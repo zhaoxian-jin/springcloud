@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/feignconsumer/feignconsumer.iml" filepath="$PROJECT_DIR$/feignconsumer/feignconsumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/feignprovide/feignprovide.iml" filepath="$PROJECT_DIR$/feignprovide/feignprovide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flowable-master/flowable-master.iml" filepath="$PROJECT_DIR$/flowable-master/flowable-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage/manage.iml" filepath="$PROJECT_DIR$/manage/manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springcloud.iml" filepath="$PROJECT_DIR$/springcloud.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage/gateway/tt-sc-gateway.iml" filepath="$PROJECT_DIR$/manage/gateway/tt-sc-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tt-sc-generator/tt-sc-generator.iml" filepath="$PROJECT_DIR$/tt-sc-generator/tt-sc-generator.iml" />
+    </modules>
+  </component>
+</project>
