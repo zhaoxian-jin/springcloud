@@ -36,20 +36,27 @@
         <commons.collections.version>3.2.1</commons.collections.version>
         <commons.io.version>2.6</commons.io.version>
         <spring.cloud.alibaba.version>2.2.3.RELEASE</spring.cloud.alibaba.version>
-
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
     </properties>
+    <!--依赖项统一版本管理，父节点版本管理，但不自动引入(下载)包，子节点引入时无需指明版本，但要声明引入包名，会自动下载-->
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring.cloud.version}</version>
+               <version>${spring.cloud.version}</version>
                 <type>pom</type>
+                <!--scope:依赖范围;import 表示此依赖项应替换为其 POM 中声明的所有有效依赖项-->
+                <!--scope:依赖范围;runtime:运行时具有此范围的依赖项,编译时不依赖。因此，标有 runtime 范围的依赖项将出现在运行时和测试类路径中-->
+                <!--scope:依赖范围;Provided JDK 或容器在运行时提供的依赖项会依赖项-->
+                <!--scope:依赖范围;complie 默认项，环境内都会依赖项-->
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
+                <version>2.3.3.RELEASE</version>
+                <!--scope:依赖范围;test:标准运行时不需要依赖项，而仅用于测试目的-->
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -59,6 +66,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--mybatis-plus启动器-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
